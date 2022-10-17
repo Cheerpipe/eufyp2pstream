@@ -314,7 +314,7 @@ class MyHandler(BaseHTTPRequestHandler):
         self.send_header("Content-type", "image/jpeg")
         self.end_headers()
         try:
-            os.system('ffmpeg -y -i rtsp://127.0.0.1:' + str(RTSP_PORT_NUMBER) + '/camera1 -frames:v 1  /tmp/frame.jpg')
+            os.system('ffmpeg -y -i rtsp://192.168.1.53:' + str(RTSP_PORT_NUMBER) + '/camera1 -frames:v 1  /tmp/frame.jpg')
             with open("/tmp/frame.jpg", "rb") as file:
                     self.wfile.write(file.read())
         except Exception as e:
@@ -324,7 +324,7 @@ async def main(run_event):
     c = Connector(run_event)
 
     ws: EufySecurityWebSocket = EufySecurityWebSocket(
-        "127.0.0.1",
+        "192.168.1.53",
         3000,
         aiohttp.ClientSession(),
         c.on_open,
